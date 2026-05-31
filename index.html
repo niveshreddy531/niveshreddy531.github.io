@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Annadi Nivesh Reddy — ML Data Analyst</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue:       #1F4E79;
+      --blue-mid:   #2E75B6;
+      --blue-light: #D6E4F0;
+      --green:      #1E7145;
+      --dark:       #1A1A1A;
+      --mid:        #555;
+      --light:      #F8F9FA;
+      --white:      #FFFFFF;
+      --border:     #DEE2E6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: var(--blue);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 40px; height: 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    nav .logo {
+      color: white; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px;
+    }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul li a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; transition: color 0.2s;
+    }
+    nav ul li a:hover { color: white; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--blue) 0%, #2E75B6 50%, #1a3a5c 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 20px 40px;
+    }
+    .hero-content { max-width: 800px; }
+    .hero-avatar {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 3px solid rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 3rem;
+    }
+    #hero h1 {
+      color: white; font-size: 2.8rem; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.5px;
+    }
+    #hero .role {
+      color: rgba(255,255,255,0.85); font-size: 1.2rem;
+      margin-bottom: 20px; font-weight: 400;
+    }
+    #hero .tagline {
+      color: rgba(255,255,255,0.7); font-size: 1rem;
+      max-width: 600px; margin: 0 auto 36px;
+    }
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-bottom: 36px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; padding: 6px 16px;
+      border-radius: 20px; font-size: 0.85rem; font-weight: 500;
+    }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 28px; border-radius: 6px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: white; color: var(--blue);
+    }
+    .btn-primary:hover { background: #f0f0f0; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: white;
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 20px; }
+    section:nth-child(even) { background: var(--light); }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.9rem; font-weight: 700; color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .section-line {
+      width: 50px; height: 4px; background: var(--blue-mid);
+      border-radius: 2px; margin-bottom: 40px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: start;
+    }
+    .about-text p { color: var(--mid); margin-bottom: 16px; font-size: 1rem; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .stat-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stat-card .num {
+      font-size: 2rem; font-weight: 700; color: var(--blue); display: block;
+    }
+    .stat-card .label { font-size: 0.82rem; color: var(--mid); }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: white; border-radius: 10px; padding: 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .skill-card h4 {
+      font-size: 0.95rem; font-weight: 700; color: var(--blue);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-tag {
+      background: var(--blue-light); color: var(--blue);
+      padding: 3px 10px; border-radius: 12px;
+      font-size: 0.78rem; font-weight: 600;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px; background: var(--blue-light);
+    }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-dot {
+      position: absolute; left: -24px; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--blue-mid); border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--blue-mid);
+    }
+    .timeline-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .timeline-company { font-weight: 700; color: var(--blue); font-size: 1.05rem; }
+    .timeline-role { color: var(--mid); font-size: 0.9rem; font-style: italic; }
+    .timeline-date {
+      background: var(--blue-light); color: var(--blue);
+      padding: 3px 12px; border-radius: 12px;
+      font-size: 0.8rem; font-weight: 600; white-space: nowrap;
+    }
+    .timeline-client {
+      font-weight: 600; color: var(--dark); font-size: 0.9rem;
+      margin: 10px 0 6px;
+    }
+    .timeline-item ul { padding-left: 18px; }
+    .timeline-item ul li {
+      color: var(--mid); font-size: 0.92rem; margin-bottom: 5px;
+    }
+    .highlight { color: var(--blue); font-weight: 600; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: white; border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .project-banner {
+      height: 8px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-mid));
+    }
+    .project-body { padding: 24px; }
+    .project-body h3 { color: var(--blue); font-size: 1.1rem; margin-bottom: 10px; }
+    .project-body p { color: var(--mid); font-size: 0.92rem; margin-bottom: 14px; }
+    .project-metric {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #E2EFDA; color: var(--green);
+      padding: 4px 12px; border-radius: 12px;
+      font-size: 0.82rem; font-weight: 700; margin-bottom: 14px;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .project-tag {
+      background: var(--blue-light); color: var(--blue);
+      padding: 3px 10px; border-radius: 10px; font-size: 0.78rem; font-weight: 600;
+    }
+    .project-links { display: flex; gap: 10px; }
+    .project-link {
+      padding: 7px 16px; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .pl-primary {
+      background: var(--blue); color: white;
+    }
+    .pl-primary:hover { background: var(--blue-mid); }
+    .pl-secondary {
+      background: transparent; color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .pl-secondary:hover { background: var(--blue-light); }
+
+    /* ── EDUCATION ── */
+    .edu-cards { display: flex; flex-direction: column; gap: 16px; }
+    .edu-card {
+      background: white; border-radius: 10px; padding: 22px 26px;
+      border-left: 4px solid var(--blue-mid);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .edu-card h4 { font-weight: 700; color: var(--blue); font-size: 1rem; }
+    .edu-card p { color: var(--mid); font-size: 0.9rem; }
+    .edu-date {
+      background: var(--blue-light); color: var(--blue);
+      padding: 4px 14px; border-radius: 12px;
+      font-size: 0.82rem; font-weight: 600; white-space: nowrap;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--blue); }
+    #contact .section-title { color: white; }
+    #contact .section-line { background: rgba(255,255,255,0.4); }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin-top: 10px;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: 20px;
+      text-align: center; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: block;
+    }
+    .contact-card:hover {
+      background: rgba(255,255,255,0.2); transform: translateY(-3px);
+    }
+    .contact-card .icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .contact-card .clabel { color: rgba(255,255,255,0.7); font-size: 0.78rem; }
+    .contact-card .cvalue { color: white; font-weight: 600; font-size: 0.9rem; word-break: break-all; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 24px;
+      background: #0F2A47; color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      #hero h1 { font-size: 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Annadi Nivesh Reddy</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-avatar">👨‍💻</div>
+    <h1>Annadi Nivesh Reddy</h1>
+    <p class="role">ML Data Analyst &nbsp;|&nbsp; London, United Kingdom</p>
+    <p class="tagline">
+      2+ years building ML pipelines for Waymo (autonomous driving) and Sleep Number (IoT).
+      Specialising in data annotation, LiDAR/camera sensor validation, and QA — achieving &gt;99% accuracy.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">Python</span>
+      <span class="badge">SQL</span>
+      <span class="badge">Power BI</span>
+      <span class="badge">TensorFlow</span>
+      <span class="badge">Keras</span>
+      <span class="badge">LiDAR Annotation</span>
+      <span class="badge">CNN Models</span>
+      <span class="badge">Data QA</span>
+    </div>
+    <div class="hero-buttons">
+      <a href="https://github.com/niveshreddy531" class="btn btn-primary" target="_blank">🐙 GitHub</a>
+      <a href="https://www.linkedin.com/in/niveshreddy" class="btn btn-outline" target="_blank">💼 LinkedIn</a>
+      <a href="mailto:niveshreddy756@gmail.com" class="btn btn-outline">✉ Email Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm an ML Data Analyst with over 2 years of experience supporting machine learning pipelines
+          across autonomous driving and IoT domains. I worked at GlobalLogic Technologies on major
+          client projects including <strong>Waymo LLC</strong> and <strong>Sleep Number Labs</strong>.
+        </p>
+        <p>
+          I specialise in large-scale data annotation, sensor data validation (LiDAR/camera fusion),
+          and QA process design — consistently achieving <strong>&gt;99% accuracy</strong>.
+          I'm proficient in Python, SQL, and Power BI for EDA, KPI reporting, and stakeholder insights.
+        </p>
+        <p>
+          I hold an <strong>MSc in Computer Science</strong> from Middlesex University, London (2025),
+          and I'm actively seeking ML Data Analyst, AI Data Specialist, and Data Analyst roles in the UK.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="num">2+</span>
+          <span class="label">Years Experience</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">&gt;99%</span>
+          <span class="label">QA Accuracy</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">10K+</span>
+          <span class="label">Frames Annotated</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">20%</span>
+          <span class="label">Throughput Gain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <h4>🤖 ML Data & Annotation</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Labelling</span>
+          <span class="skill-tag">2D/3D Bounding Boxes</span>
+          <span class="skill-tag">Polygons</span>
+          <span class="skill-tag">Polylines</span>
+          <span class="skill-tag">LiDAR Fusion</span>
+          <span class="skill-tag">Label Studio</span>
+          <span class="skill-tag">Crowd Compute</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>🔍 Data Analysis & QA</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">EDA</span>
+          <span class="skill-tag">Dataset QA</span>
+          <span class="skill-tag">Quality Benchmarking</span>
+          <span class="skill-tag">Error Reduction</span>
+          <span class="skill-tag">Throughput Optimisation</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>💻 Programming & Querying</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Jupyter Notebook</span>
+          <span class="skill-tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>📊 Visualisation & Reporting</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">KPI Reporting</span>
+          <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">Seaborn</span>
+          <span class="skill-tag">Trend Analysis</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>🧠 Machine Learning</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Keras</span>
+          <span class="skill-tag">CNN Models</span>
+          <span class="skill-tag">Transfer Learning</span>
+          <span class="skill-tag">Feature Engineering</span>
+          <span class="skill-tag">Model Evaluation</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>🛠 Databases & Tools</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="section-line"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">GlobalLogic Technologies</div>
+            <div class="timeline-role">ML Data Analyst (AI & Analytics) — Hyderabad, India</div>
+          </div>
+          <span class="timeline-date">Sep 2021 – Oct 2023</span>
+        </div>
+
+        <div class="timeline-client">🚗 Waymo LLC — Autonomous Driving</div>
+        <ul>
+          <li>Analysed and annotated <span class="highlight">10,000+ video frames</span> to support autonomous vehicle perception models</li>
+          <li>Created precise 2D/3D bounding boxes, polygons, and polylines for ML training pipelines</li>
+          <li>Validated fused LiDAR and camera sensor datasets, reducing annotation errors by <span class="highlight">~15%</span></li>
+          <li>Maintained <span class="highlight">&gt;99% QA accuracy</span>, consistently exceeding client benchmarks</li>
+          <li>Improved annotation throughput by <span class="highlight">20%</span> via workflow optimisation</li>
+        </ul>
+
+        <div class="timeline-client" style="margin-top:16px">🛏 Sleep Number Labs — Smart Bed & Home Automation</div>
+        <ul>
+          <li>Processed large-scale video and IoT sensor datasets to extract sleep pattern insights</li>
+          <li>Standardised labelling and validation procedures, improving dataset consistency by <span class="highlight">~18%</span></li>
+          <li>Delivered high-quality datasets for KPI reporting across multiple product features</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-banner"></div>
+        <div class="project-body">
+          <h3>🔬 AI-Driven Breast Cancer Detection</h3>
+          <p>
+            End-to-end CNN pipeline for early-stage breast cancer detection using medical imaging.
+            Built with TensorFlow/Keras — covers data preprocessing, augmentation, model training,
+            evaluation, and performance visualisation for clinical interpretability.
+          </p>
+          <div class="project-metric">✅ 93.86% Test Accuracy</div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">Keras</span>
+            <span class="project-tag">CNN</span>
+            <span class="project-tag">Scikit-learn</span>
+            <span class="project-tag">Matplotlib</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/niveshreddy531/breast-cancer-detection" class="project-link pl-primary" target="_blank">🐙 GitHub</a>
+            <a href="https://nbviewer.org/github/niveshreddy531/breast-cancer-detection/blob/main/Breast_Cancer_Detection.ipynb" class="project-link pl-secondary" target="_blank">📓 Notebook</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-banner"></div>
+        <div class="project-body">
+          <h3>🐦 Bird Species Identification System</h3>
+          <p>
+            Image classification pipeline trained on 11,000+ images using transfer learning
+            (MobileNetV2). Deployed as a Django web application for real-time species prediction
+            with confidence scores and interactive analytics.
+          </p>
+          <div class="project-metric">✅ ~80% Accuracy | 94% Top-5</div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">Transfer Learning</span>
+            <span class="project-tag">Django</span>
+            <span class="project-tag">MobileNetV2</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/niveshreddy531/bird-species-identification" class="project-link pl-primary" target="_blank">🐙 GitHub</a>
+            <a href="https://nbviewer.org/github/niveshreddy531/bird-species-identification/blob/main/Bird_Species_Identification.ipynb" class="project-link pl-secondary" target="_blank">📓 Notebook</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <h2 class="section-title">Education & Certifications</h2>
+    <div class="section-line"></div>
+    <div class="edu-cards">
+
+      <div class="edu-card">
+        <div>
+          <h4>🎓 MSc in Computer Science</h4>
+          <p>Middlesex University — London, United Kingdom</p>
+        </div>
+        <span class="edu-date">January 2025</span>
+      </div>
+
+      <div class="edu-card">
+        <div>
+          <h4>🏅 Cisco Certified Network Associate (CCNA)</h4>
+          <p>Cisco Systems</p>
+        </div>
+        <span class="edu-date">Certified</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="section-line"></div>
+    <p style="color:rgba(255,255,255,0.75); margin-bottom:28px; font-size:1rem;">
+      Open to ML Data Analyst, AI Data Specialist, and Data Analyst roles in the UK.
+      Feel free to reach out — I respond within 24 hours.
+    </p>
+    <div class="contact-grid">
+      <a href="mailto:niveshreddy756@gmail.com" class="contact-card">
+        <div class="icon">✉️</div>
+        <div class="clabel">Email</div>
+        <div class="cvalue">niveshreddy756@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/niveshreddy" class="contact-card" target="_blank">
+        <div class="icon">💼</div>
+        <div class="clabel">LinkedIn</div>
+        <div class="cvalue">linkedin.com/in/niveshreddy</div>
+      </a>
+      <a href="https://github.com/niveshreddy531" class="contact-card" target="_blank">
+        <div class="icon">🐙</div>
+        <div class="clabel">GitHub</div>
+        <div class="cvalue">github.com/niveshreddy531</div>
+      </a>
+      <a href="tel:07778308066" class="contact-card">
+        <div class="icon">📞</div>
+        <div class="clabel">Phone</div>
+        <div class="cvalue">07778 308066</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Annadi Nivesh Reddy — Built with GitHub Pages</p>
+</footer>
+
+</body>
+</html>
